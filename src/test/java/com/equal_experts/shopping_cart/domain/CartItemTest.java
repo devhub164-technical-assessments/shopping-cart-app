@@ -1,0 +1,32 @@
+package com.equal_experts.shopping_cart.domain;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class CartItemTest {
+
+    private CartItem underTest;
+
+    @BeforeEach
+    public void setup() {
+        Product product = new Product("Cornflakes", BigDecimal.valueOf(2.52));
+        underTest = new CartItem(product, 1);
+    }
+
+    @Test
+    void shouldIncreaseQuantity() {
+        underTest.increaseQuantity(1);
+        assertEquals(2, underTest.getQuantity());
+    }
+
+    @Test
+    void shouldCalculateItemTotalPrice() {
+        underTest.increaseQuantity(1);
+        BigDecimal itemTotal = underTest.calculateItemTotalPrice();
+        assertEquals(0, BigDecimal.valueOf(5.04).compareTo(itemTotal));
+    }
+}
