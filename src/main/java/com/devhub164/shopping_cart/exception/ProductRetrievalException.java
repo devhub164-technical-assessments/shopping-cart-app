@@ -1,4 +1,4 @@
-package com.equal_experts.shopping_cart.exception;
+package com.devhub164.shopping_cart.exception;
 
 public class ProductRetrievalException extends RuntimeException {
 

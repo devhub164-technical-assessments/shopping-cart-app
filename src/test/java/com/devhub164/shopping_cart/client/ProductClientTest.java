@@ -1,7 +1,7 @@
-package com.equal_experts.shopping_cart.client;
+package com.devhub164.shopping_cart.client;
 
-import com.equal_experts.shopping_cart.domain.Product;
-import com.equal_experts.shopping_cart.exception.ProductRetrievalException;
+import com.devhub164.shopping_cart.domain.Product;
+import com.devhub164.shopping_cart.exception.ProductRetrievalException;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;

@@ -1,8 +1,8 @@
-package com.equal_experts.shopping_cart.domain;
+package com.devhub164.shopping_cart.domain;
 
-import com.equal_experts.shopping_cart.exception.ProductQuantityInvalidException;
-import com.equal_experts.shopping_cart.exception.ProductRetrievalException;
-import com.equal_experts.shopping_cart.provider.ProductProvider;
+import com.devhub164.shopping_cart.exception.ProductQuantityInvalidException;
+import com.devhub164.shopping_cart.exception.ProductRetrievalException;
+import com.devhub164.shopping_cart.provider.ProductProvider;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

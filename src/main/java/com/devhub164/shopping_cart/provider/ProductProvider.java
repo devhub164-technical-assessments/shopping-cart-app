@@ -1,8 +1,8 @@
-package com.equal_experts.shopping_cart.provider;
+package com.devhub164.shopping_cart.provider;
 
-import com.equal_experts.shopping_cart.client.ProductClient;
-import com.equal_experts.shopping_cart.domain.Product;
-import com.equal_experts.shopping_cart.exception.ProductRetrievalException;
+import com.devhub164.shopping_cart.client.ProductClient;
+import com.devhub164.shopping_cart.domain.Product;
+import com.devhub164.shopping_cart.exception.ProductRetrievalException;
 
 public class ProductProvider {
 

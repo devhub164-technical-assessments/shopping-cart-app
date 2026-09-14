@@ -1,4 +1,4 @@
-package com.equal_experts.shopping_cart.domain;
+package com.devhub164.shopping_cart.domain;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

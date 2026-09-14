@@ -1,7 +1,7 @@
-package com.equal_experts.shopping_cart.client;
+package com.devhub164.shopping_cart.client;
 
-import com.equal_experts.shopping_cart.domain.Product;
-import com.equal_experts.shopping_cart.exception.ProductRetrievalException;
+import com.devhub164.shopping_cart.domain.Product;
+import com.devhub164.shopping_cart.exception.ProductRetrievalException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -17,9 +17,9 @@ public class ProductClient {
     private final HttpClient client;
     private final ObjectMapper objectMapper;
 
-    public ProductClient(HttpClient client) {
-        this.client = client;
-        this.objectMapper = new ObjectMapper();
+    public ProductClient() {
+        client = HttpClient.newHttpClient();
+        objectMapper = new ObjectMapper();
     }
 
     public Product findProductByTitle(String title) {
