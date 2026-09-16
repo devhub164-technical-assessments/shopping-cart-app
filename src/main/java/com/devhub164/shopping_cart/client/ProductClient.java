@@ -17,24 +17,37 @@ public class ProductClient {
     private final HttpClient client;
     private final ObjectMapper objectMapper;
 
-    public ProductClient() {
-        client = HttpClient.newHttpClient();
+    public ProductClient(HttpClient client) {
+       this.client = client;
         objectMapper = new ObjectMapper();
     }
 
     public Product findProductByTitle(String title) {
+
+        if(title == null || title.isBlank()) {
+            throw new ProductRetrievalException("Failed to retrieve product: title is null or empty");
+        }
+
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(BASE_URL + title + ".json"))
                 .GET()
                 .build();
+
         try {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return objectMapper.readValue(response.body(), new TypeReference<>() {
-            });
-        } catch (IOException | InterruptedException e) {
-            String message = (title == null || title.isEmpty()) ?
-                    "Failed to retrieve product: title is null or empty" : "Failed to retrieve product with title: " + title;
-            throw new ProductRetrievalException(message, e);
+            if(response.statusCode() != 200) {
+                throw new ProductRetrievalException("Failed to retrieve product with title: " + title + ". " +
+                        "HTTP status code: " + response.statusCode());
+            }
+
+            return objectMapper.readValue(response.body(), new TypeReference<>() {});
+
+        } catch (IOException e) {
+            throw new ProductRetrievalException("Failed to retrieve product with title: " + title, e);
+        }
+        catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+            throw new ProductRetrievalException("Request interrupted while retrieving product with title: " + title, e);
         }
 
     }

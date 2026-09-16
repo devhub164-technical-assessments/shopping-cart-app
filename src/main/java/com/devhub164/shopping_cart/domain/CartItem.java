@@ -6,6 +6,8 @@ public class CartItem {
 
     private final Product product;
 
+    private static final String PROMOTIONAL_PRODUCT = "Cornflakes";
+
     private int quantity;
 
     public CartItem(Product product, int quantity) {
@@ -26,7 +28,13 @@ public class CartItem {
     }
 
     public BigDecimal calculateItemTotalPrice() {
-        return product.price().multiply(BigDecimal.valueOf(quantity));
+        int billingQuantity = quantity;
+
+       if(PROMOTIONAL_PRODUCT.equalsIgnoreCase(product.title())){
+           int freeItems = quantity / 3;
+           billingQuantity = quantity - freeItems;
+       }
+        return product.price().multiply(BigDecimal.valueOf(billingQuantity));
     }
 
 }

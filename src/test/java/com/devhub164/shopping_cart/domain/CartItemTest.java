@@ -29,4 +29,28 @@ class CartItemTest {
         BigDecimal itemTotal = underTest.calculateItemTotalPrice();
         assertEquals(0, BigDecimal.valueOf(5.04).compareTo(itemTotal));
     }
+
+    @Test
+    void shouldApplyBuyTwoGetOneFree(){
+        underTest.increaseQuantity(2);
+        assertEquals(3, underTest.getQuantity());
+        BigDecimal itemTotal = underTest.calculateItemTotalPrice();
+        assertEquals(0, BigDecimal.valueOf(5.04).compareTo(itemTotal));
+    }
+
+    @Test
+    void shouldBeBilledForThreeItemsWhenQuantityIsFour(){
+        underTest.increaseQuantity(3);
+        assertEquals(4, underTest.getQuantity());
+        BigDecimal itemTotal = underTest.calculateItemTotalPrice();
+        assertEquals(0, BigDecimal.valueOf(7.56).compareTo(itemTotal));
+    }
+
+    @Test
+    void shouldBeBilledForFourItemsWhenQuantityIsSix(){
+        underTest.increaseQuantity(5);
+        assertEquals(6, underTest.getQuantity());
+        BigDecimal itemTotal = underTest.calculateItemTotalPrice();
+        assertEquals(0, BigDecimal.valueOf(10.08).compareTo(itemTotal));
+    }
 }

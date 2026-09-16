@@ -1,8 +1,8 @@
 package com.devhub164.shopping_cart.domain;
 
+import com.devhub164.shopping_cart.client.ProductClient;
 import com.devhub164.shopping_cart.exception.ProductQuantityInvalidException;
 import com.devhub164.shopping_cart.exception.ProductRetrievalException;
-import com.devhub164.shopping_cart.provider.ProductProvider;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -11,12 +11,12 @@ import java.util.Map;
 
 public class Cart {
 
-    private final ProductProvider productProvider;
+    private final ProductClient productClient;
 
     private final Map<String, CartItem> items = new HashMap<>();
 
-    public Cart(ProductProvider productProvider) {
-        this.productProvider = productProvider;
+    public Cart(ProductClient productClient) {
+        this.productClient = productClient;
     }
 
     private static final BigDecimal TAX_RATE = BigDecimal.valueOf(0.125);
@@ -33,7 +33,7 @@ public class Cart {
             return;
         }
 
-        Product product = productProvider.findProductByTitle(title);
+        Product product = productClient.findProductByTitle(title);
         this.items.put(product.title(), new CartItem(product, quantity));
 
     }

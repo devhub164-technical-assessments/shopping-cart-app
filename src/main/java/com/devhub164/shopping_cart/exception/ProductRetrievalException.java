@@ -6,4 +6,7 @@ public class ProductRetrievalException extends RuntimeException {
         super(message, cause);
     }
 
+    public ProductRetrievalException(String message) {
+        super(message);
+    }
 }

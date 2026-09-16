@@ -1,8 +1,9 @@
 package com.devhub164.shopping_cart.domain;
 
+import com.devhub164.shopping_cart.client.ProductClient;
 import com.devhub164.shopping_cart.exception.ProductQuantityInvalidException;
 import com.devhub164.shopping_cart.exception.ProductRetrievalException;
-import com.devhub164.shopping_cart.provider.ProductProvider;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,25 +25,25 @@ public class CartTest {
     private Cart underTest;
 
     @Mock
-    private ProductProvider productProvider;
+    private ProductClient productClient;
 
     private static final String FIRST_PRODUCT = "Cornflakes";
     private static final String SECOND_PRODUCT = "Weetabix";
 
     @BeforeEach
     public void setup() {
-        underTest = new Cart(productProvider);
+        underTest = new Cart(productClient);
     }
 
     @Test
     void shouldIncreaseQuantityOnAddingSameProduct() throws ProductQuantityInvalidException, ProductRetrievalException {
-        when(productProvider.findProductByTitle(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT, BigDecimal.valueOf(2.52)));
+        when(productClient.findProductByTitle(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT, BigDecimal.valueOf(2.52)));
         underTest.addProduct(FIRST_PRODUCT, 1);
         underTest.addProduct(FIRST_PRODUCT, 1);
 
         assertEquals(2, underTest.getProductQuantity(FIRST_PRODUCT));
-        assertEquals(BigDecimal.valueOf(2.52), underTest.getProductPrice(FIRST_PRODUCT));
-        verify(productProvider, times(1)).findProductByTitle(FIRST_PRODUCT);
+        assertEquals(BigDecimal.valueOf(5.04), underTest.calculateSubTotal());
+        verify(productClient, times(1)).findProductByTitle(FIRST_PRODUCT);
 
     }
 
@@ -89,8 +90,8 @@ public class CartTest {
     }
 
     private void setupCartProducts() throws ProductQuantityInvalidException, ProductRetrievalException {
-        when(productProvider.findProductByTitle(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT, BigDecimal.valueOf(2.52)));
-        when(productProvider.findProductByTitle(SECOND_PRODUCT)).thenReturn(new Product(SECOND_PRODUCT, BigDecimal.valueOf(9.98)));
+        when(productClient.findProductByTitle(FIRST_PRODUCT)).thenReturn(new Product(FIRST_PRODUCT, BigDecimal.valueOf(2.52)));
+        when(productClient.findProductByTitle(SECOND_PRODUCT)).thenReturn(new Product(SECOND_PRODUCT, BigDecimal.valueOf(9.98)));
 
         underTest.addProduct(FIRST_PRODUCT, 2);
         underTest.addProduct(SECOND_PRODUCT, 1);
